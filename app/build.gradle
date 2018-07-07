@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.zzy.event.ac"
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // Butter Knife 又名黄油刀，View、点击事件
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+//    apt 'com.jakewharton:butterknife-compiler:8.8.1' // 如果使用Kotlin，请用此替换上面的annotationProcessor
+    // EventBus 数据跨域传递
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    // Okhttp
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    // Okhttp 拦截器
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    // https
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    // OKGo 对Okhttp的封装，方便调用，此包内部已经包含了okhttp and okio包
+    implementation 'com.lzy.net:okgo:3.0.4'
+    // retrofit 对Okhttp的封装，方便调用，此包内部已经包含了okhttp and okio包
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    // retrofit数据解析器
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+//    compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
+//    compile 'com.squareup.retrofit2:converter-moshi:2.3.0'
+//    compile 'com.squareup.retrofit2:converter-protobuf:2.3.0'
+//    compile 'com.squareup.retrofit2:converter-wire:2.3.0'
+//    compile 'com.squareup.retrofit2:converter-simplexml:2.3.0'
+//    compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    // Retrofit的rx解析库
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    // RxJava - 响应式编程范式
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
+    // RxAndroid - RxJava的扩展库，使更好的兼容Android特性，比如主线程、UI事件等
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+
+    // FastJson Json解析库，阿里出品，建议用Gson，由于Gson是google的亲儿子，稳定性更好。
+    implementation 'com.alibaba:fastjson:1.2.5'
+
+    // ZXing 二维码生成及扫描
+    implementation 'com.google.zxing:core:3.3.0'
+//    compile 'com.google.zxing:android-core:3.3.0'
+//    compile 'com.google.zxing:android-integration:3.3.0'
+    // ZXing 公司项目中用2.2.0版本
+//    compile 'com.google.zxing:core:2.3.0'
+}
