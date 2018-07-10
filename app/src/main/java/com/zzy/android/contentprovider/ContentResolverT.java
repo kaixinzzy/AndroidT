@@ -5,17 +5,24 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 
 /**
  * 内容解析器
  */
 public class ContentResolverT {
-    private Context context;
 
     public ContentResolverT(Context context) {
-        Uri uri = Uri.parse("content://com.zzy.app.provider/table");
+        Uri uri = Uri.parse("content://com.zzy.provider.db/table");
+        Uri uriSP = Uri.parse("content://com.zzy.provider.sharedpref");
 
         ContentResolver contentResolver = context.getContentResolver();
+
+        // 调用call方法，得到Bundle类型的返回值
+        Bundle bundle = contentResolver.call(uriSP, "methodName", null, null);
+        if (bundle != null) {
+            bundle.getString("sn", "");
+        }
 
         // 插入数据
         ContentValues values = new ContentValues();

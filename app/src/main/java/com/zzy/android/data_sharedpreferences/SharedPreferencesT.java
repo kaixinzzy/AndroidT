@@ -3,6 +3,8 @@ package com.zzy.android.data_sharedpreferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Map;
+
 /**
  * Created by BCLZzy on 2018/7/6.
  * SharedPreferences
@@ -19,13 +21,16 @@ public class SharedPreferencesT {
 
         // 写入
         SharedPreferences.Editor edit = sp.edit();
-        edit.putString("name", "小白兔");
+        edit.putString("name", "小白兔");// 添加 or 替换已有字段
         edit.putBoolean("isBig", true);
-        edit.apply();// 提交键值对
+        edit.remove("name");// 删除字段
+        edit.apply();// 提交键值对，无返回值，异步效率高【不需要返回值，并且单进程中使用】
+        boolean commit = edit.commit();// 提交键值对，返回boolean表明修改是否提交成功，同步效率差【需要返回值 or 多进程】
 
-        // 读取 参数一：key 参数二：读取不到会的默认值
+        // 读取 所以的getXXX()方法，都支持默认值，即如果没有找到与当前key值对应的value，则返回我们自己设置的默认值
         String name = sp.getString("name", "我是默认值");
         boolean isBig = sp.getBoolean("isBig", false);
+        Map<String, ?> map = sp.getAll();// 获取所有数据
 
     }
 

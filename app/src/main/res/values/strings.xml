@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StuEventBus</string>
+    <string name="app_name">AndroidT</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -21,4 +21,14 @@
         <item>ccc</item>
     </array>
     <string name="title_activity_okhttp">OkhttpActivity</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="constraint_banner">banner</string>
+    <string name="constraint_hello">亲爱的朋友您好！</string>
+    <string name="constraint_hid_name">小妞来输入啊</string>
+    <string name="constraint_name">用户名：</string>
+    <string name="constract_psw">密码：</string>
+    <string name="constraint_login">登录</string>
+    <string name="constraint_cancel">取消</string>
+    <string name="constraint_content">ad发送到发送到发斯蒂芬斯蒂芬卡萨两地分居萨拉丁快乐撒打飞机拉上看到过阿里斯顿解放啦斯柯达解放路撒快点放假阿萨德飞机爱上了对方空间撒地方撒旦法地方撒地方萨迪克垃圾分类萨克的姐夫卢卡斯</string>
 </resources>
