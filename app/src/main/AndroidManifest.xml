@@ -13,14 +13,14 @@
 
     <!-- 开机广播 -->
     <application
-        android:debuggable="true"
         android:name="com.zzy.def.base.APP"
+        android:allowBackup="false"
+        android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:allowBackup="false"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,HardcodedDebugMode">
         <activity android:name=".MainActivity"/>
         <activity android:name=".Main2Activity"/>
@@ -28,11 +28,6 @@
         <activity android:name="com.zzy.butterkniffe.ac.ButterKniffeActivity"/>
         <activity android:name="com.zzy.okhttp.ac.OkhttpActivity"/>
         <activity android:name="com.zzy.zxing.ac.ZXingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <!-- 静态注册广播接收器，接收开机广播 -->
@@ -57,21 +52,35 @@
         <!-- android:exported="true" 表示是否允许外部程序访问我们的内容提供器 -->
         <provider
             android:name="com.zzy.android.contentprovider.ContentProviderT"
-            android:authorities="com.zzy.provider.db"
+            android:authorities="com.zzy.provider"
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedContentProvider"/>
         <provider
-            android:authorities="com.zzy.provider.sharedpref"
             android:name="com.zzy.android.contentprovider.ContentProviderSP"
+            android:authorities="com.zzy.provider.sharedpref"
             android:exported="true"
             tools:ignore="ExportedContentProvider"/>
+        <provider
+            android:name="com.zzy.android.contentprovider.ContentProviderDB"
+            android:authorities="com.zzy.provider.db"
+            android:enabled="true"
+            android:exported="true"
+            tools:ignore="ExportedContentProvider">
+        </provider>
 
         <activity android:name="com.zzy.android.HandlerActivity">
         </activity>
         <activity android:name="com.zzy.android.fragment.FragmentActivity">
         </activity>
         <activity android:name="com.zzy.android.constraintlayout.ConstraintActivity">
+        </activity>
+        <activity android:name="com.zzy.android.recyclerview.RecyclerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

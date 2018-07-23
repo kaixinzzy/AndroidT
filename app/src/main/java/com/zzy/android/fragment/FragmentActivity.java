@@ -42,6 +42,8 @@ public class FragmentActivity extends android.support.v4.app.FragmentActivity im
         ft.replace(R.id.fragment, fragment);// 替换
         ft.replace(R.id.fragment, fragment, fragment.getClass().getName());// 替换，带TAG
         ft.remove(fragment);// 移除
+
+        //fragment = (LifeCycleFragment) fm.findFragmentByTag(fragment.getClass().getName());// 通过TAG，获取fragment
     }
 
     public void back() {
