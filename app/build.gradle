@@ -12,7 +12,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -27,6 +28,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // 内存泄露检测工具
+    implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    // Log4j 将Log输出内容写入sd卡
+    implementation files('libs/android-logging-log4j-1.0.3.jar')
+    implementation files('libs/log4j-1.2.17.jar')
 
     // Butter Knife 又名黄油刀，View、点击事件
     implementation 'com.jakewharton:butterknife:8.8.1'
