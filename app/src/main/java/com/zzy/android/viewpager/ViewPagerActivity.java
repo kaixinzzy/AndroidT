@@ -1,13 +1,13 @@
 package com.zzy.android.viewpager;
 
 import android.annotation.SuppressLint;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 
 import com.zzy.android.viewpager.adapter.ViewPagerAdapter;
 import com.zzy.android.viewpager.adapter.ViewPagerFragmentPagerAdapter;
@@ -16,27 +16,43 @@ import com.zzy.android.viewpager.fragment.Fragment1;
 import com.zzy.android.viewpager.fragment.Fragment2;
 import com.zzy.android.viewpager.fragment.Fragment3;
 import com.zzy.android.viewpager.fragment.Fragment4;
+import com.zzy.android.viewpager.model.ViewStatus;
 import com.zzy.event.ac.R;
+import com.zzy.event.ac.databinding.ActivityViewPagerBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class ViewPagerActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
 
-    private Button left;// 上一页
-    private Button right;// 下一页
     private int position;// 当前状态
+    private ViewStatus mViewStatus;
+
+    public class OnClick {
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.button_left:
+                    mViewPager.setCurrentItem(position-1);// 滑动到上一页
+                    break;
+                case R.id.button_right:
+                    mViewPager.setCurrentItem(position+1);// 滑动到下一页
+                    break;
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
-        left = findViewById(R.id.button_left);
-        right = findViewById(R.id.button_right);
-        left.setOnClickListener(this);
-        right.setOnClickListener(this);
+
+        ActivityViewPagerBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_view_pager);
+
+        mViewStatus = new ViewStatus();
+        binding.setViewStatus(mViewStatus);
+        binding.setOnClick(new OnClick());
 
         mViewPager = findViewById(R.id.viewpager);
 
@@ -97,37 +113,25 @@ public class ViewPagerActivity extends AppCompatActivity implements ViewPager.On
     public void onPageSelected(int position) {
         // 记录当前选中页面position值
         this.position = position;
-        // 左右滑动按钮的显示or隐藏
-        right.setVisibility(View.INVISIBLE);
-        left.setVisibility(View.INVISIBLE);
+        // 左右滑动按钮的可用or不可用
+        mViewStatus.setPageUpEnable(true);
+        mViewStatus.setPageDownEnable(true);
         if (mViewPager.getAdapter() == null) {
             return;
         }
         if (mViewPager.getAdapter().getCount() <= 1) {
             return;
         }
-        if (position != 0) {
-            left.setVisibility(View.VISIBLE);
+        if (position == 0) {
+            mViewStatus.setPageUpEnable(false);
         }
-        if (position != mViewPager.getAdapter().getCount()-1) {
-            right.setVisibility(View.VISIBLE);
+        if (position == mViewPager.getAdapter().getCount()-1) {
+            mViewStatus.setPageDownEnable(false);
         }
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button_left:
-                mViewPager.setCurrentItem(position-1);// 滑动到上一页
-                break;
-            case R.id.button_right:
-                mViewPager.setCurrentItem(position+1);// 滑动到下一页
-                break;
-        }
     }
 }

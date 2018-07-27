@@ -23,10 +23,10 @@
     <string name="title_activity_okhttp">OkhttpActivity</string>
 
     <string name="hello_blank_fragment">fragment one</string>
-    <string name="fragment_one">fragment one</string>
-    <string name="fragment_two">fragment two</string>
-    <string name="fragment_three">fragment three</string>
-    <string name="fragment_four">fragment four</string>
+    <string name="fragment_one">one</string>
+    <string name="fragment_two">two</string>
+    <string name="fragment_three">three</string>
+    <string name="fragment_four">four</string>
     <string name="constraint_banner">banner</string>
     <string name="constraint_hello">亲爱的朋友您好！</string>
     <string name="constraint_hid_name">小妞来输入啊</string>

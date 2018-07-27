@@ -5,4 +5,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="zxing">54dp</dimen>
     <dimen name="constraint_text_size">8sp</dimen>
+    <dimen name="but_width">180dp</dimen>
+    <dimen name="but_height">46dp</dimen>
 </resources>
