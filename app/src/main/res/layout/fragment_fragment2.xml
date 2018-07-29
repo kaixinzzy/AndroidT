@@ -1,15 +1,31 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.zzy.android.viewpager.fragment.Fragment2">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.zzy.android.viewpager.fragment.Fragment2">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fragment_two"
-        android:layout_gravity="center"
-        android:textSize="36sp"/>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="load"
+            type="com.zzy.android.viewpager.model.Loading"/>
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/fragment_two"
+            android:textSize="36sp"
+            android:visibility="@{load.loading ? View.GONE : View.VISIBLE}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/loading"
+            android:textSize="36sp"
+            android:visibility="@{load.loading ? View.VISIBLE : View.GONE}"/>
+    </FrameLayout>
+</layout>

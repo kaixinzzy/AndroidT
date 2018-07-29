@@ -26,7 +26,7 @@ import java.io.Writer;
 public class CrashHandler implements Thread.UncaughtExceptionHandler  {
 
     private static final String TAG = "CrashHandler";
-    private static final Logger LOGGER = LogUtil.getLogger(CrashHandler.class);
+//    private static final Logger LOGGER = LogUtil.getLogger(CrashHandler.class);
 
     @SuppressLint("StaticFieldLeak")
     private static CrashHandler mCrashHandler;
@@ -52,8 +52,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler  {
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         final String errorinfo = getErrorInfo(ex);
-//        Log.d(TAG, errorinfo);
-        LOGGER.debug(errorinfo);
+        Log.d(TAG, errorinfo);
+//        LOGGER.debug(errorinfo);
 
         Log.d(TAG, "异常日志上传接口");
         new Thread() {

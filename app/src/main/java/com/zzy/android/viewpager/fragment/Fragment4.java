@@ -1,6 +1,7 @@
 package com.zzy.android.viewpager.fragment;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -8,13 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zzy.android.viewpager.model.Loading;
 import com.zzy.event.ac.R;
+import com.zzy.event.ac.databinding.FragmentFragment2Binding;
+import com.zzy.event.ac.databinding.FragmentFragment4Binding;
 
-public class Fragment4 extends Fragment {
+public class Fragment4 extends LazyLoadFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
+    private Loading loading = new Loading(true);
 
     public Fragment4() {}
 
@@ -39,7 +44,11 @@ public class Fragment4 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_fragment4, container, false);
+        FragmentFragment4Binding binding = DataBindingUtil.
+                inflate(inflater, R.layout.fragment_fragment4, container, false);
+        View view = binding.getRoot();
+        binding.setLoad(loading);
+        return view;
     }
 
     @Override
@@ -50,5 +59,15 @@ public class Fragment4 extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override // 懒加载网络数据，并刷新UI
+    public void fetchData() {
+        try {
+            Thread.sleep((long) 300f);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        loading.setLoading(false);
     }
 }

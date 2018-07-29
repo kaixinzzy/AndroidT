@@ -1,6 +1,7 @@
 package com.zzy.android.viewpager.fragment;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,13 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zzy.android.viewpager.model.Loading;
 import com.zzy.event.ac.R;
+import com.zzy.event.ac.databinding.FragmentFragment1Binding;
 
-public class Fragment1 extends Fragment {
+public class Fragment1 extends LazyLoadFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
+    private Loading loading = new Loading(true);
 
     public Fragment1() { }
 
@@ -45,7 +49,11 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_fragment1, container, false);
+        FragmentFragment1Binding binding = DataBindingUtil.
+                inflate(inflater, R.layout.fragment_fragment1, container, false);
+        View view = binding.getRoot();
+        binding.setLoad(loading);
+        return view;
     }
 
     @Override
@@ -63,9 +71,9 @@ public class Fragment1 extends Fragment {
         super.onResume();
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
+    @Override // 懒加载网络数据，并刷新UI
+    public void fetchData() {
+        loading.setLoading(false);
     }
 
     @Override
