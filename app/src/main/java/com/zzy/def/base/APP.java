@@ -2,6 +2,7 @@ package com.zzy.def.base;
 
 import android.app.Application;
 
+import com.blankj.utilcode.util.Utils;
 import com.squareup.leakcanary.LeakCanary;
 import com.zzy.def.utils.CrashHandler;
 
@@ -16,8 +17,8 @@ public class APP extends Application {
         super.onCreate();
 
         initLeakCanary();//初始化Activity内存泄漏检测工具LeakCanary
-
         CrashHandler.getInstance().init(this);//异常捕获
+        Utils.init(this);// 工具集合
     }
 
     @Override

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 侧滑菜单 -->
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.zzy.android.materialdesign.DesignActivity"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--
+    FrameLayout的子类
+    使底部弹出Snackbar时，悬浮阴影按钮FloatingActionButton随之上移
+    -->
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--
+        由于CoordinatorLayout是FrameLayout的子类，Toolbar和RecyclerView都是match_parent
+        此时Toolbar会被遮挡，AppBarLayout可以解决此问题。
+        并实现Toolbar和RecyclerView的联动效果
+        -->
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--
+            头部导航
+            scroll 当RecyclerView向上滚动时，Toolbar会跟着一起向上滚动并实现隐藏；
+            enterAlways 当RecyclerView向下滚动时，Toolbar会跟着一起向下滚动并重新显示；
+            snap 当Toolbar没有完全隐藏或显示时，会根据当前滚动的距离，自动选择隐藏还是显示;
+            -->
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_scrollFlags="scroll|enterAlways|snap"/>
+        </android.support.design.widget.AppBarLayout>
+
+        <!--
+        数据刷新进度条
+        将滚动距离发送给Toolbar，Toolbar根据滚动距离实现显示或隐藏自己的效果
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        -->
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <!-- 悬浮阴影按钮 -->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@android:drawable/ic_menu_help" />
+    </android.support.design.widget.CoordinatorLayout>
+
+    <!-- 左侧滑入侧滑菜单：android:layout_gravity="start" -->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/nav_menu"
+        app:headerLayout="@layout/nav_header"/>
+
+</android.support.v4.widget.DrawerLayout>

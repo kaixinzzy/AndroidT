@@ -78,9 +78,11 @@
         <activity android:name="com.zzy.android.constraintlayout.ConstraintActivity">
         </activity>
         <activity android:name="com.zzy.android.recyclerview.RecyclerActivity">
-
         </activity>
         <activity android:name="com.zzy.android.viewpager.ViewPagerActivity">
+
+        </activity>
+        <activity android:name="com.zzy.android.materialdesign.DesignActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
