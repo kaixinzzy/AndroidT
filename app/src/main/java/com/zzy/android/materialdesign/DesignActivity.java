@@ -1,5 +1,6 @@
 package com.zzy.android.materialdesign;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -68,6 +69,7 @@ public class DesignActivity extends AppCompatActivity implements NavigationView.
                 mDrawerLayout.openDrawer(GravityCompat.START);// 打开侧滑菜单
                 break;
             case R.id.revert:
+                startActivity(new Intent(this, DesignDetailActivity.class));
                 ToastUtils.showShort("You clicked revert");
                 break;
             case R.id.delete:
@@ -129,7 +131,12 @@ public class DesignActivity extends AppCompatActivity implements NavigationView.
     @Override // 刷新数据监听
     public void onRefresh() {
         // 网络请求数据，并更新UI
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         mRefreshLayout.setRefreshing(false);// 完成后，关闭加载进度条
+        ToastUtils.showShort("数据刷新完成");
     }
 }
