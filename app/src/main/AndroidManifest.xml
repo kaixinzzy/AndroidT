@@ -93,13 +93,16 @@
         <activity android:name="com.zzy.android.viewpager.ViewPagerActivity">
         </activity>
         <activity android:name="com.zzy.android.materialdesign.DesignActivity">
-
         </activity>
         <activity android:name="com.zzy.android.materialdesign.DesignDetailActivity">
         </activity>
         <activity android:name="com.zzy.framework.mvc.MvcActivity">
         </activity>
         <activity android:name="com.zzy.framework.mvp.MvpActivity">
+        </activity>
+        <activity android:name="com.zzy.rx.RxJavaActivity">
+        </activity>
+        <activity android:name="com.zzy.dagger.DaggerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

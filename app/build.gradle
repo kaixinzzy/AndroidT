@@ -12,8 +12,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -74,10 +74,23 @@ dependencies {
 //    compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
     // Retrofit的rx解析库
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
     // RxJava - 响应式编程范式
     implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
     // RxAndroid - RxJava的扩展库，使更好的兼容Android特性，比如主线程、UI事件等
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    // RxJava2 Adapter
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
+    // Dagger2 译匕首 依赖注入（降低程序耦合性）
+    implementation 'com.google.dagger:dagger:2.17'
+    // 自动生成代码apt
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.17'
+    // 基于android的优化，Activity、Fragment、Service、Braodcast
+    implementation 'com.google.dagger:dagger-android:2.17'
+    // 自动生成代码apt
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.17'
+    implementation 'com.google.dagger:dagger-android-support:2.17'
 
     // FastJson Json解析库，阿里出品，建议用Gson，由于Gson是google的亲儿子，稳定性更好。
     implementation 'com.alibaba:fastjson:1.2.5'
