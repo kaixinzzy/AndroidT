@@ -8,6 +8,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        // gradle and gradle tools 版本对应关系请参考如下连接
+        // https://developer.android.com/studio/releases/gradle-plugin
+        // 当gradle tools版本时3.1.4时，buildToolsVersion最低是27.0.3
         classpath 'com.android.tools.build:gradle:3.1.4'
         // Butter Knife 黄油刀
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
