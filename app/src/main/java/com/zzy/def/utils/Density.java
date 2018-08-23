@@ -11,6 +11,7 @@ import android.util.DisplayMetrics;
 
 /**
  * 通过修改系统参数来适配android设备
+ * 注意：并不能解决大屏幕与小屏幕的适配。还是需要资源限定符来做区分。因为一般大屏幕显示的布局跟小屏幕是不一样的。
  */
 public class Density {
 

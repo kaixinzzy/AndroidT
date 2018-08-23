@@ -24,6 +24,11 @@ android {
 }
 
 dependencies {
+    // AS 升级到3.0的一些个改变
+    // compile - implementation or api
+    // testCompile - testImplementation or testApi
+    // debugCompile - debugImplementation or debugApi
+    // releaseCompile - releaseImplementation or releaseApi
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
