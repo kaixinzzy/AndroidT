@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.zzy.event.ac.R;
-import com.zzy.json.gson.GsonT;
 import com.zzy.rx.module.News;
 
 import java.util.ArrayList;
@@ -49,7 +48,6 @@ public class RxJavaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_java);
 
-        new GsonT();
         init();
 
         Observable.create(new ObservableOnSubscribe<Response>() {
