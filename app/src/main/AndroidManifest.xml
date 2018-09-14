@@ -29,7 +29,13 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,HardcodedDebugMode">
         <activity android:name=".MainActivity"/>
         <activity android:name=".Main2Activity"/>
-        <activity android:name="com.zzy.retrofit.ac.RetrofitActivity"/>
+        <activity android:name="com.zzy.retrofit.ac.RetrofitActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name="com.zzy.butterkniffe.ac.ButterKniffeActivity"/>
         <activity android:name="com.zzy.okhttp.ac.OkhttpActivity"/>
         <activity android:name="com.zzy.zxing.ac.ZXingActivity">
@@ -101,14 +107,11 @@
         <activity android:name="com.zzy.framework.mvp.MvpActivity">
         </activity>
         <activity android:name="com.zzy.rx.RxJavaActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name="com.zzy.dagger.DaggerActivity">
-
+        </activity>
+        <activity android:name="com.zzy.android.dialog.DialogActivity">
         </activity>
     </application>
 

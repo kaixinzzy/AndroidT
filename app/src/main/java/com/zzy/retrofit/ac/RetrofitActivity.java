@@ -43,8 +43,8 @@ public class RetrofitActivity extends AppCompatActivity {
                 .connectTimeout(15, TimeUnit.SECONDS)   // 设置连接超时
                 .readTimeout(45, TimeUnit.SECONDS)      // 设置读取超时
                 .writeTimeout(55, TimeUnit.SECONDS)     // 设置写入超时
-                .addInterceptor(loggingInterceptor)
-                .cookieJar(cookieJar)
+//                .addInterceptor(loggingInterceptor)
+//                .cookieJar(cookieJar)
                 .build();
 
         // 创建Retrofit实例
