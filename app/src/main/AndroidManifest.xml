@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> <!-- 允许读取wifi网络状态 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!-- 允许接收开机广播 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- 允许读取SD卡 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- 允许写入SD卡 -->
 
     <!-- 允许写入SD卡 -->
     <!-- SD卡写权限 -->
@@ -107,11 +107,12 @@
         <activity android:name="com.zzy.framework.mvp.MvpActivity">
         </activity>
         <activity android:name="com.zzy.rx.RxJavaActivity">
-
         </activity>
         <activity android:name="com.zzy.dagger.DaggerActivity">
         </activity>
         <activity android:name="com.zzy.android.dialog.DialogActivity">
+        </activity>
+        <activity android:name="com.zzy.android.download.DownloadActivity">
         </activity>
     </application>
 
