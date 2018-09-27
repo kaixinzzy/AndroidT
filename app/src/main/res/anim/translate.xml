@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--透明度动画
+    fromAlpha 设置透明度的初始值，其中0.0是透明，1.0是不透明的。
+    toAlpha   设置透明度的结束值，其中0.0是透明，1.0是不透明的。
+    duration  动画执行时间-->
+    <alpha
+        android:fromAlpha="1"
+        android:toAlpha="0.2"
+        android:duration="2000"/>
+
+    <!--缩放动画
+    fromXScale 水平方向缩放比例的初始值，其中1.0是没有任何变化。
+    fromYScale 竖直方向缩放比例的初始值，其中1.0是没有任何变化。
+    toXScale   水平方向缩放比例的结束值，其中1.0是没有任何变化。
+    toYScale   竖直方向缩放比例的结束值，其中1.0是没有任何变化。
+    pivotX     缩放中心点的x坐标
+    pivotY     缩放中心点的y坐标-->
+    <scale
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:toXScale="0.0"
+        android:toYScale="0.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="5000"/>
+
+
+    <!--平移动画
+    fromXDelta
+        Float or percentage. 移动起始点的x坐标. 表示形式有三种：
+        1 相对于自己的左边界的距离，单位像素值。（例如 "5"）
+        2 相对于自己的左边界的距离与自身宽度的百分比。（例如  "5%"）
+        3 相对于父View的左边界的距离与父View宽度的百分比。（例如 "5%p"）
+    toXDelta
+        Float or percentage. 移动结束点的x坐标. 表现形式同上
+    fromYDelta
+        Float or percentage. 移动起始点的y坐标. 表示形式有三种：
+        1 相对于自己的上边界的距离，单位像素值。（例如 "5"）
+        2 相对于自己的上边界的距离与自身高度的百分比。（例如  "5%"）
+        3 相对于父View的上边界的距离与父View高度的百分比。（例如 "5%p"）
+    toYDelta
+        Float or percentage. 移动结束点的y坐标. 表现形式同上-->
+
+    <translate
+        android:duration="2000"
+        android:fromXDelta="5%p"
+        android:fromYDelta="5%p"
+        android:toXDelta="100"
+        android:toYDelta="100"/>
+
+    <!--旋转动画
+    fromDegrees Float. 旋转初始的角度。
+    toDegrees   Float. 旋转结束的角度。
+    pivotX
+        Float or percentage. 旋转中心点x坐标，表示形式有三种：
+        1 相对于自己的左边界的距离，单位像素值。（例如 "5"）
+        2 相对于自己的左边界的距离与自身宽度的百分比。（例如 "5%"）
+        3 相对于父View的左边界的距离与父View宽度的百分比。（例如 "5%p"）
+    pivotY
+        Float or percentage. 旋转中心点y坐标，表示形式有三种：
+        1 相对于自己的上边界的距离，单位像素值。（例如 "5"）
+        2 相对于自己的上边界的距离与自身宽度的百分比。（例如 "5%"）
+        3 相对于父View的上边界的距离与父View高度的百分比。（例如 "5%p"）-->
+    <rotate
+        android:duration="2000"
+        android:fromDegrees="0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toDegrees="+360"/>
+
+</set>
