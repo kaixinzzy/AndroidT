@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!-- 允许接收开机广播 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- 允许读取SD卡 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- 允许写入SD卡 -->
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" /><!--DownloadManager下载时不显示Notification-->
 
     <!-- 允许写入SD卡 -->
     <!-- SD卡写权限 -->
@@ -30,11 +31,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".Main2Activity"/>
         <activity android:name="com.zzy.retrofit.ac.RetrofitActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name="com.zzy.butterkniffe.ac.ButterKniffeActivity"/>
         <activity android:name="com.zzy.okhttp.ac.OkhttpActivity"/>
@@ -113,6 +110,11 @@
         <activity android:name="com.zzy.android.dialog.DialogActivity">
         </activity>
         <activity android:name="com.zzy.android.download.DownloadActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 
