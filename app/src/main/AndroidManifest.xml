@@ -13,8 +13,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!-- 允许接收开机广播 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- 允许读取SD卡 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- 允许写入SD卡 -->
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" /><!--DownloadManager下载时不显示Notification-->
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
 
+    <!-- DownloadManager下载时不显示Notification -->
     <!-- 允许写入SD卡 -->
     <!-- SD卡写权限 -->
     <!-- 开机广播 -->
@@ -31,7 +32,6 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".Main2Activity"/>
         <activity android:name="com.zzy.retrofit.ac.RetrofitActivity">
-
         </activity>
         <activity android:name="com.zzy.butterkniffe.ac.ButterKniffeActivity"/>
         <activity android:name="com.zzy.okhttp.ac.OkhttpActivity"/>
@@ -85,7 +85,7 @@
             tools:ignore="ExportedContentProvider">
         </provider>
 
-        <activity android:name="com.zzy.android.HandlerActivity">
+        <activity android:name="com.zzy.android.handler.HandlerActivity">
         </activity>
         <activity android:name="com.zzy.android.fragment.FragmentActivity">
         </activity>
@@ -116,6 +116,18 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <service
+            android:name="com.zzy.android.service.IntentServiceT"
+            android:exported="false">
+        </service>
+        <!-- exported 是否允许本程序之外的程序访问 -->
+        <!-- enabled  是否启用 -->
+        <service
+            android:name="com.zzy.android.service.StartService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>
