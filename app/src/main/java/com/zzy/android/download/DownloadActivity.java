@@ -7,9 +7,17 @@ import com.zzy.event.ac.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ThreadFactory;
 
 public class DownloadActivity extends AppCompatActivity {
     private static final String TAG = "DownloadActivity";
+
+    private static int THREAD_MAX = 5;// 最大下载并发数（未防止内存溢出）
+    private ExecutorService pool = Executors.newFixedThreadPool(THREAD_MAX);
+    private ThreadFactory f = Executors.defaultThreadFactory();
 
     private List<DownloadStatus> mDownloadStatuses = new ArrayList<>();
 
@@ -26,6 +34,12 @@ public class DownloadActivity extends AppCompatActivity {
             DownloadResume downloadResume = new DownloadResume(this, mDownloadStatuses.get(i));
             downloadResume.setRedownloadNum(5);
             downloadResume.DownloadStart();
+        }
+
+        try {
+//            pool.execute(download);
+        } catch (RejectedExecutionException e) {
+            e.printStackTrace();
         }
     }
 
