@@ -110,11 +110,6 @@
         <activity android:name="com.zzy.android.dialog.DialogActivity">
         </activity>
         <activity android:name="com.zzy.android.download.DownloadActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <service
@@ -128,6 +123,14 @@
             android:enabled="true"
             android:exported="true">
         </service>
+
+        <activity android:name="com.zzy.android.inputdevice.InputActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
