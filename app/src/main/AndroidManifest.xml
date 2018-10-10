@@ -112,6 +112,13 @@
         <activity android:name="com.zzy.android.download.DownloadActivity">
         </activity>
 
+        <activity android:name="com.zzy.android.service.StartServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <service
             android:name="com.zzy.android.service.IntentServiceT"
             android:exported="false">
@@ -119,18 +126,14 @@
         <!-- exported 是否允许本程序之外的程序访问 -->
         <!-- enabled  是否启用 -->
         <service
-            android:name="com.zzy.android.service.StartService"
+            android:name="com.zzy.android.service.ServiceT"
             android:enabled="true"
             android:exported="true">
         </service>
 
         <activity android:name="com.zzy.android.inputdevice.InputActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
