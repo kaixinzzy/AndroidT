@@ -12,37 +12,71 @@
         android:id="@+id/start_intent_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:onClick="onClick"
         android:text="启动IntentService"/>
     <Button
         android:id="@+id/stop_intent_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:onClick="onClick"
         android:text="关闭IntentService"/>
     <Button
         android:id="@+id/start_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:onClick="onClick"
         android:text="启动Service"/>
     <Button
         android:id="@+id/stop_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:onClick="onClick"
         android:text="关闭Service"/>
     <Button
         android:id="@+id/bind_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:onClick="onClick"
         android:text="绑定Service"/>
     <Button
         android:id="@+id/unbind_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:onClick="onClick"
         android:text="解绑定Service"/>
+    <Button
+        android:id="@+id/start_notification_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:onClick="onClick"
+        android:text="启动前台Service"/>
+    <Button
+        android:id="@+id/stop_notification_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:onClick="onClick"
+        android:text="关闭前台Service"/>
+    <Button
+        android:id="@+id/start_remote_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:onClick="onClick"
+        android:text="启动远程Service"/>
+    <Button
+        android:id="@+id/stop_remote_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:onClick="onClick"
+        android:text="关闭远程Service"/>
 
 </LinearLayout>

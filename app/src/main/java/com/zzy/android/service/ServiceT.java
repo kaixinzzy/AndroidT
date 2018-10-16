@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.Process;
 import android.util.Log;
 
 /**
@@ -15,6 +16,8 @@ public class ServiceT extends Service {
     @Override // 启动服务，多次启动，只会执行一次
     public void onCreate() {
         Log.d(TAG, "onCreate");
+        Log.d(TAG, "Process id is " + Process.myPid());
+        Log.d(TAG, "Thread id is " + Thread.currentThread().getId());
         super.onCreate();
     }
 
@@ -44,11 +47,16 @@ public class ServiceT extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand 开始睡眠");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        int count = 1;
+        while (count < 5000) {
+            Log.d(TAG, "当前时间：" + count++ + "s");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
         Log.d(TAG, "onStartCommand 睡眠结束");
         return super.onStartCommand(intent, flags, startId);
     }
