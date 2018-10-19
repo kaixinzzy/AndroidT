@@ -112,17 +112,12 @@
         <activity android:name="com.zzy.android.download.DownloadActivity">
         </activity>
 
-        <activity android:name="com.zzy.android.service.StartServiceActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <activity android:name="com.zzy.android.service.ac.StartServiceActivity">
         </activity>
         <!-- exported 是否允许本程序之外的程序访问 -->
         <!-- enabled  是否启用 -->
         <!-- process  【远程服务】是否运行在单独的进程中 -->
-        <!--异步服务-->
+        <!-- 异步服务 -->
         <service
             android:name="com.zzy.android.service.IntentServiceT"
             android:exported="false">
@@ -132,13 +127,20 @@
             android:enabled="true"
             android:exported="true">
         </service>
-        <!--前台服务-->
+        <!-- 前台服务 -->
         <service
             android:name="com.zzy.android.service.NotificationService"
             android:enabled="true"
             android:exported="true">
         </service>
-        <!--远程服务-->
+        <activity android:name="com.zzy.android.service.ac.RemoteServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- 远程服务 -->
         <service
             android:name="com.zzy.android.service.RemoteService"
             android:enabled="true"
@@ -146,13 +148,13 @@
             android:process=":remote">
             <intent-filter>
                 <action android:name="com.zzy.aidl"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </service>
 
         <activity android:name="com.zzy.android.inputdevice.InputActivity">
         </activity>
-
 
     </application>
 

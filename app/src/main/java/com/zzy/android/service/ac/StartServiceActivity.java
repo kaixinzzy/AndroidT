@@ -1,23 +1,20 @@
-package com.zzy.android.service;
+package com.zzy.android.service.ac;
 
 import android.app.Service;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
-import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.zzy.aidl.IUserManager;
-import com.zzy.aidl.User;
+import com.zzy.android.service.IntentServiceT;
+import com.zzy.android.service.NotificationService;
+import com.zzy.android.service.ServiceT;
 import com.zzy.event.ac.R;
-
-import java.util.List;
 
 /**
  * Service
@@ -62,40 +59,6 @@ public class StartServiceActivity extends AppCompatActivity implements View.OnCl
         @Override // 绑定失败
         public void onServiceDisconnected(ComponentName name) {
             Log.d(TAG, "绑定失败");
-        }
-    };
-
-    private boolean isConnectRemote = false;
-    private IUserManager mIUserManager;
-    // 绑定服务后回调【远程服务】
-    ServiceConnection mServiceConnectionRemote = new ServiceConnection(){
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG, "绑定成功 Remote");
-            isConnectRemote = true;
-            mIUserManager = IUserManager.Stub.asInterface(service);
-            User user = new User();
-            user.setName("我是客户端");
-            try {
-                mIUserManager.setUser(user);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-            try {
-                List<User> users = mIUserManager.getUsers();
-                for (User user1 : users) {
-                    Log.d(TAG, user1.getName());
-                }
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            Log.d(TAG, "绑定失败 Remote");
-            isConnectRemote = false;
         }
     };
 
@@ -148,10 +111,7 @@ public class StartServiceActivity extends AppCompatActivity implements View.OnCl
 //                    Intent intent = new Intent(getApplicationContext(), RemoteService.class);
 //                    getApplication().bindService(intent, mServiceConnectionRemote, Context.BIND_AUTO_CREATE);
                     // 隐式调用
-                    Intent intent = new Intent();
-                    intent.setAction("com.zzy.aidl");
-                    intent.setPackage("com.zzy.event.ac");// 设置应用包名，不然android5.0以后隐式启动服务报异常
-                    getApplication().bindService(intent, mServiceConnectionRemote, Context.BIND_AUTO_CREATE);
+
                     break;
                 }
                 case R.id.stop_remote_service:// 关闭远程服务
@@ -161,9 +121,7 @@ public class StartServiceActivity extends AppCompatActivity implements View.OnCl
 //                    ComponentName componentName = new ComponentName(this, servicePkg);
 //                    intent.setComponent(componentName);
 //                    stopService(intent);
-                    if (isConnectRemote) {
-                        unbindService(mServiceConnectionRemote);
-                    }
+
                     break;
                 }
 //                case 1:// 绑定远程服务
