@@ -27,6 +27,9 @@ android {
         // 开启数据绑定
         enabled = true
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -35,7 +38,7 @@ dependencies {
     // testCompile - testImplementation or testApi
     // debugCompile - debugImplementation or debugApi
     // releaseCompile - releaseImplementation or releaseApi
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
