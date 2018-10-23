@@ -111,7 +111,6 @@
         </activity>
         <activity android:name="com.zzy.android.download.DownloadActivity">
         </activity>
-
         <activity android:name="com.zzy.android.service.ac.StartServiceActivity">
         </activity>
         <!-- exported 是否允许本程序之外的程序访问 -->
@@ -133,6 +132,7 @@
             android:enabled="true"
             android:exported="true">
         </service>
+
         <activity android:name="com.zzy.android.service.ac.RemoteServiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -155,7 +155,8 @@
 
         <activity android:name="com.zzy.android.inputdevice.InputActivity">
         </activity>
-
+        <activity android:name="com.zzy.okdownload.OkDownLoadActivity">
+        </activity>
     </application>
 
 </manifest>
