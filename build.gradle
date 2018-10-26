@@ -3,8 +3,9 @@
 buildscript {
     
     repositories {
-        google()
+        // 下载依赖库对应的服务器，下面的多个仓库，好像排在第一个的会生效，如果遇到下载依赖失败，可调整仓库的前后顺序试试.
         jcenter()
+        google()
         mavenCentral()
     }
     dependencies {
