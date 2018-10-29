@@ -7,11 +7,11 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>               <!-- 允许使用网络 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>   <!-- 允许读取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>      <!-- 允许读取wifi网络状态 -->
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- 允许使用网络 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> <!-- 允许读取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> <!-- 允许读取wifi网络状态 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!-- 允许接收开机广播 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>  <!-- 允许读取SD卡 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- 允许读取SD卡 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- 允许写入SD卡 -->
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
 
@@ -133,7 +133,7 @@
             android:exported="true">
         </service>
 
-        <activity android:name="com.zzy.android.service.ac.RemoteServiceActivity">
+        <activity android:name="com.zzy.android.service.ac.AIDLServiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -142,7 +142,7 @@
         </activity>
         <!-- 远程服务 -->
         <service
-            android:name="com.zzy.android.service.RemoteService"
+            android:name="com.zzy.android.service.AIDLService"
             android:enabled="true"
             android:exported="true"
             android:process=":remote">
@@ -152,11 +152,26 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </service>
+        <service
+            android:name="com.zzy.android.service.MessengerService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.zzy.messenger"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
 
         <activity android:name="com.zzy.android.inputdevice.InputActivity">
         </activity>
         <activity android:name="com.zzy.okdownload.OkDownLoadActivity">
         </activity>
+        <activity android:name="com.zzy.android.service.ac.MessengerServiceActivity">
+        </activity>
+
+
     </application>
 
 </manifest>

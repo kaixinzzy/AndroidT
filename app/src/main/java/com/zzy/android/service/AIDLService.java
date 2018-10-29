@@ -19,8 +19,8 @@ import java.util.List;
  * 不占用应用进程的内存。但交互起来麻烦点，
  * 涉及到进程间通信IPC，Android提供了AIDL（Android interface definition language 接口描述语言）
  */
-public class RemoteService extends Service {
-    private static final String TAG = "RemoteService";
+public class AIDLService extends Service {
+    private static final String TAG = "AIDLService";
 
     @Override
     public void onCreate() {

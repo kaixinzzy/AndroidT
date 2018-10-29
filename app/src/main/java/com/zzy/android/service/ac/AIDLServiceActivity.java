@@ -23,7 +23,7 @@ import java.util.List;
  * 参考：
  *      https://blog.csdn.net/flowingflying/article/details/8030609
  */
-public class RemoteServiceActivity extends AppCompatActivity {
+public class AIDLServiceActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
 
     @Override
@@ -79,7 +79,7 @@ public class RemoteServiceActivity extends AppCompatActivity {
     public void startService(View view) {
         // Intent显示启动
         Intent intent = new Intent();
-        intent.setClassName("com.zzy.event.ac", "com.zzy.android.service.RemoteService");
+        intent.setClassName("com.zzy.event.ac", "com.zzy.android.service.AIDLService");
         startService(intent);
         // Intent隐式启动
 //        intent.setAction("com.zzy.aidl");
@@ -90,7 +90,7 @@ public class RemoteServiceActivity extends AppCompatActivity {
     public void stopService(View view) {
         // Intent显示关闭
         Intent intent = new Intent();
-        intent.setClassName("com.zzy.event.ac", "com.zzy.android.service.RemoteService");
+        intent.setClassName("com.zzy.event.ac", "com.zzy.android.service.AIDLService");
         stopService(intent);
     }
 

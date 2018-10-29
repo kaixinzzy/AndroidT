@@ -109,7 +109,7 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.2.5'
 
     // 图片加载
-    implementation ("com.github.bumptech.glide:glide:4.8.0") {
+    implementation("com.github.bumptech.glide:glide:4.8.0") {
         // 排除glide自身依赖的support包，用本app依赖的support包
         exclude group: "com.android.support"
     }
