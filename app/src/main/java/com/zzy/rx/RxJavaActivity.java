@@ -40,7 +40,7 @@ import okhttp3.ResponseBody;
  * https://www.jianshu.com/p/0cd258eecf60
  */
 public class RxJavaActivity extends AppCompatActivity {
-    private static final String TAG = "RxJavaActivity";
+    private static final String TAG = RxJavaActivity.class.getSimpleName();
 
     @SuppressLint("CheckResult")
     @Override
@@ -114,6 +114,7 @@ public class RxJavaActivity extends AppCompatActivity {
         onNext = 3
         onComplete
          */
+        // 被观察者，被订阅者
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
@@ -123,23 +124,25 @@ public class RxJavaActivity extends AppCompatActivity {
                 emitter.onComplete();
                 emitter.onNext(4); // onComplete后调用onNext，观察者是接收不到的
             }
-        }).subscribe(new Observer<Integer>() {
-            @Override
+        })
+        // 观察者、订阅者
+        .subscribe(new Observer<Integer>() {
+            @Override // 它会在事件还未发送之前被调用，可以用来做一些准备操作。而里面的Disposable则是用来切断上下游的关系的。
             public void onSubscribe(Disposable d) {
                 Log.d(TAG, "onSubscribe " + String.valueOf(d.isDisposed()));
             }
 
-            @Override
+            @Override // 普通的事件。将要处理的事件添加到队列中。
             public void onNext(Integer integer) {
                 Log.d(TAG,  "onNext = " + integer);
             }
 
-            @Override
+            @Override // 事件队列异常，在事件处理过程中出现异常情况时，此方法会被调用。同时队列将会终止，也就是不允许在有事件发出。
             public void onError(Throwable e) {
                 Log.d(TAG, "onError");
             }
 
-            @Override
+            @Override // 事件队列完成。rxjava不仅把每个事件单独处理。而且会把他们当成一个队列。当不再有onNext事件发出时，需要触发onComplete方法作为完成标识。
             public void onComplete() {
                 Log.d(TAG, "onComplete");
             }
