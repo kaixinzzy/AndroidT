@@ -2,6 +2,7 @@ package com.zzy.android.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -49,6 +50,42 @@ public class FragmentActivity extends android.support.v4.app.FragmentActivity im
     public void back() {
         if (null != fm && fm.getBackStackEntryCount() > 1) {
             fm.popBackStack();//回退栈，会退到上一个fragment
+        }
+    }
+
+    /**
+     * 参考：https://blog.csdn.net/chen19960724/article/details/52517780
+     * replace替换，销毁当前显示的Fragment，添加需要显示的Fragment，
+     * add()+remove() = replace()
+     * 优点：
+     *      节省内存。
+     * 缺点：
+     *      对于需要切换频繁的时，性能消耗大。
+     * @param fragment
+     */
+    private void showFragment(Fragment fragment) {
+        if (ft != null) {
+            ft.replace(R.id.fragment, fragment).commit();
+        }
+    }
+
+    /**
+     * hide()+show() 将Fragment视图隐藏之后在显示。
+     * 优点：
+     *      不用重新创建Fragment，性能消耗小
+     * 缺点：
+     *      占用内存
+     *
+     */
+    private void changeFragment(Fragment from, Fragment to) {
+        if (to.isAdded()) {
+            ft.hide(from)
+                    .show(to)
+                    .commitAllowingStateLoss();
+        } else {
+            ft.hide(from)
+                    .add(R.id.fragment, to)
+                    .commitAllowingStateLoss();
         }
     }
 
