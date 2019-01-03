@@ -5,8 +5,95 @@ import org.junit.Test;
 
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Vector;
 
 public class JavaRun {
+
+    @Test //
+    public void lowByteToHighByte() {
+        byte highByte = (byte) 0x80;// 高位
+        byte lowByte = (byte) 0x80;// 低位
+        int high = highByte << 8;
+        int low = lowByte;
+        System.out.println("high is " + high);
+        System.out.println("low is " + low);
+    }
+
+    @Test
+    public void ParseLong() {
+        System.out.println(String.format(Locale.getDefault(), "%012d", Long.parseLong("123")));
+        // 只去整数
+        int i = Math.round(Float.valueOf("0.01")*100f);
+        String s = String.valueOf(i);
+        System.out.println(s);
+        System.out.println(String.format(Locale.getDefault(), "%012d", Long.parseLong(s, 10)));
+    }
+
+    @Test
+    public void Vector() {
+        Vector<String> stringVector = new Vector<>();
+        stringVector.add("a");
+        stringVector.add("b");
+        stringVector.add("c");
+
+        System.out.println(stringVector.get(0));
+
+        stringVector.remove(0);
+        stringVector.remove(0);
+        if (stringVector.size() != 0) {
+            System.out.println(stringVector.get(0));
+        } else {
+            System.out.println("Vector size is 0");
+        }
+    }
+
+    public void checkBCC(byte[] datas,byte checkData){
+        boolean flag = false;
+        int result = 0;
+        for (int i = 0; i <datas.length; i++) {
+            result = result ^ ((int)datas[i]);
+        }
+        int data= (int)checkData;
+        if (result==data){
+            flag =  true;
+        }
+        System.out.println("BCC（又名XOR 异或校验算法）结果：" + flag);
+    }
+
+    public byte getBCC(byte[] bytes) {
+        int result = 0;
+        for (int i = 0; i < (bytes.length); i++) {
+            result = result ^ ((int)bytes[i]);
+        }
+        System.out.println("根据byte数组，计算BCC校验值： " + (byte) result);
+        return (byte) result;
+    }
+
+    @Test
+    public void testBCC() {
+        byte[] datas = {0x02, 0x03, 0x01, 0x00, 0x00, 0x03};
+        JavaRun javaRun = new JavaRun();
+        javaRun.checkBCC(datas, (byte) 0x03);
+
+        javaRun.getBCC(datas);
+    }
+
+    protected byte getSum(byte[] bytes) {
+        int sum = 0;
+        for (int i = 0; i < bytes.length; i++) {
+            sum = sum + (int) bytes[i];
+        }
+        return (byte) (sum & 0xFF);// 只保留一位
+    }
+
+    @Test // 和校验，只保留1位
+    public void testSum() {
+        byte[] datas = {0x00, 0x22};
+        JavaRun javaRun = new JavaRun();
+        byte b = javaRun.getSum(datas);
+        System.out.print("和校验:" + b);
+    }
 
     /**
      * String类型的钱数，转换成byte[]

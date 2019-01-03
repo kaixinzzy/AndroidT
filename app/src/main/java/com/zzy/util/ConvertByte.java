@@ -67,7 +67,7 @@ public class ConvertByte {
      * @param flag 返回结果类型 true:0x00 false:00
      * @return
      */
-    private static String toHexString(byte[] bytes, boolean flag) {
+    public static String toHexString(byte[] bytes, boolean flag) {
         final StringBuilder builder = new StringBuilder();
         for(byte b : bytes) {
             if (flag) {

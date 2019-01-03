@@ -23,6 +23,7 @@ import io.reactivex.Observer;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
@@ -42,17 +43,19 @@ import okhttp3.ResponseBody;
 public class RxJavaActivity extends AppCompatActivity {
     private static final String TAG = RxJavaActivity.class.getSimpleName();
 
+    CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+
+
     @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_java);
 
-        init();
-
         Observable.create(new ObservableOnSubscribe<Response>() {
             @Override
             public void subscribe(ObservableEmitter<Response> emitter) throws Exception {
+                // OkHttp请求网络
                 Request.Builder builder = new Request.Builder()
                         .url("http://c.m.163.com/nc/article/headline/T1348647909107/60-20.html")
                         .get();
@@ -64,6 +67,7 @@ public class RxJavaActivity extends AppCompatActivity {
         }).map(new Function<Response, News>() {
             @Override
             public News apply(Response response) throws Exception {
+                // 类型转换（从Response中获取Json，并将Json转换成Bean）
                 Log.d(TAG, "map 线程：" + Thread.currentThread().getName() + "\n");
                 if (response.isSuccessful()) {
                     ResponseBody body = response.body();
@@ -87,6 +91,7 @@ public class RxJavaActivity extends AppCompatActivity {
         .subscribe(new Consumer<News>() {
             @Override
             public void accept(News news) throws Exception {
+                // 数据请求成功，更新UI
                 Log.d(TAG, "subscribe 线程：" + Thread.currentThread().getName() + "\n");
                 if (news != null) {
                     Log.d(TAG, "数据不为空" + news.getT1348647909107().get(0).getLtitle());
@@ -97,24 +102,23 @@ public class RxJavaActivity extends AppCompatActivity {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
+                // 数据请求失败，更新UI
                 Log.d(TAG, "subscribe 线程：" + Thread.currentThread().getName() + "\n");
                 Log.d(TAG, "数据请求失败 " + throwable.getMessage());
             }
         });
     }
 
-    // 操作符
+    /**
+     * Log
+     *         onSubscribe false
+     *         onNext = 1
+     *         onNext = 2
+     *         onNext = 3
+     *         onComplete
+     */
     @SuppressLint("CheckResult")
-    public void init() {
-        /*
-        Log
-        onSubscribe false
-        onNext = 1
-        onNext = 2
-        onNext = 3
-        onComplete
-         */
-        // 被观察者，被订阅者
+    private void create() {
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
@@ -125,37 +129,45 @@ public class RxJavaActivity extends AppCompatActivity {
                 emitter.onNext(4); // onComplete后调用onNext，观察者是接收不到的
             }
         })
-        // 观察者、订阅者
-        .subscribe(new Observer<Integer>() {
-            @Override // 它会在事件还未发送之前被调用，可以用来做一些准备操作。而里面的Disposable则是用来切断上下游的关系的。
-            public void onSubscribe(Disposable d) {
-                Log.d(TAG, "onSubscribe " + String.valueOf(d.isDisposed()));
-            }
+                // 观察者、订阅者
+                .subscribe(new Observer<Integer>() {
+                    Disposable mDisposable;// 用户停止接收发射器发来的消息
+                    @Override // 它会在事件还未发送之前被调用，可以用来做一些准备操作。而里面的Disposable则是用来切断上下游的关系的。
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG, "onSubscribe " + String.valueOf(d.isDisposed()));
+                        mDisposable = d;
+                    }
 
-            @Override // 普通的事件。将要处理的事件添加到队列中。
-            public void onNext(Integer integer) {
-                Log.d(TAG,  "onNext = " + integer);
-            }
+                    @Override // 普通的事件。将要处理的事件添加到队列中。
+                    public void onNext(Integer integer) {
+                        Log.d(TAG,  "onNext = " + integer);
+                        if (integer == 4) {
+                            mDisposable.dispose();
+                        }
+                    }
 
-            @Override // 事件队列异常，在事件处理过程中出现异常情况时，此方法会被调用。同时队列将会终止，也就是不允许在有事件发出。
-            public void onError(Throwable e) {
-                Log.d(TAG, "onError");
-            }
+                    @Override // 事件队列异常，在事件处理过程中出现异常情况时，此方法会被调用。同时队列将会终止，也就是不允许在有事件发出。
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError");
+                    }
 
-            @Override // 事件队列完成。rxjava不仅把每个事件单独处理。而且会把他们当成一个队列。当不再有onNext事件发出时，需要触发onComplete方法作为完成标识。
-            public void onComplete() {
-                Log.d(TAG, "onComplete");
-            }
-        });
+                    @Override // 事件队列完成。rxjava不仅把每个事件单独处理。而且会把他们当成一个队列。当不再有onNext事件发出时，需要触发onComplete方法作为完成标识。
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete");
+                    }
+                });
+    }
 
-        /*
-        map 拦截发送的每一条消息，并进行转化或执行一个函数后，再转交个观察者
-        Log
-        apply 我将所有发送的数据统一进行了处理 当前类型是String 1
-        accept 我将所有发送的数据统一进行了处理 当前类型是String 1
-        apply 我将所有发送的数据统一进行了处理 当前类型是String 2
-        accept 我将所有发送的数据统一进行了处理 当前类型是String 2
-         */
+    /**
+     * map 拦截发送的每一条消息，并进行转化或执行一个函数后，再转交个观察者
+     *         Log
+     *         apply 我将所有发送的数据统一进行了处理 当前类型是String 1
+     *         accept 我将所有发送的数据统一进行了处理 当前类型是String 1
+     *         apply 我将所有发送的数据统一进行了处理 当前类型是String 2
+     *         accept 我将所有发送的数据统一进行了处理 当前类型是String 2
+     */
+    @SuppressLint("CheckResult")
+    private void map() {
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
@@ -175,14 +187,18 @@ public class RxJavaActivity extends AppCompatActivity {
                 Log.d(TAG, "accept " + s);
             }
         });
+    }
 
-        /*
-        zip 专用于合并事件，该合并不是连接（连接操作符后面会说），而是两两配对，也就意味着，最终配对出的 Observable 发射事件数目只和少的那个相同。
-        Log a1; b2;
-         */
+    /**
+     * zip 专用于合并事件，该合并不是连接（连接操作符后面会说），而是两两配对，也就意味着，最终配对出的 Observable 发射事件数目只和少的那个相同。
+     *         Log a1; b2;
+     */
+    @SuppressLint("CheckResult")
+    private void zip() {
         Observable.zip(Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                // 发射器1
                 emitter.onNext("a");
                 emitter.onNext("b");
                 emitter.onNext("c");
@@ -190,12 +206,15 @@ public class RxJavaActivity extends AppCompatActivity {
         }), Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                // 发射器2
                 emitter.onNext(1);
                 emitter.onNext(2);
             }
         }), new BiFunction<String, Integer, String>() {
             @Override
             public String apply(String s, Integer integer) throws Exception {
+                // 将发射器1和发射器2发射的内容整合后，重新发射
+                // 比如从两个接口获取的结果，组合成一个bean，然后更新UI
                 return s + integer;
             }
         }).subscribe(new Consumer<String>() {
@@ -204,26 +223,53 @@ public class RxJavaActivity extends AppCompatActivity {
                 Log.d(TAG, "zip accept " + s);
             }
         });
+    }
 
-        /*
-        concat 连接器，将两个发射器连接成一个，一次发送
-        在操作符 concat 中，只有调用 onComplete 之后才会执行下一个 Observable，即3
-        Log 1; 2; 3;
-         */
-        Observable.concat(Observable.just(1,2), Observable.just(3))
+    /**
+     * concat 连接器，将两个发射器连接成一个，一次发送
+     *         在操作符 concat 中，只有调用 onComplete 之后才会执行下一个 Observable，即3
+     *         Log 1; 2; 3;
+     */
+    @SuppressLint("CheckResult")
+    private void concat() {
+        Observable.concat(Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                // 发射器1
+                // 从内存读取数据
+                if (true) {
+                    // 读取到数据，发射数据
+                    emitter.onNext(1);
+                } else {
+                    // 未读取到数据，启动发射器2（只有调用onComplete后，才会执行一个发射器）
+                    emitter.onComplete();
+                }
+
+            }
+        }), Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                // 发射器2
+                // 从网络读取数据
+                emitter.onNext(2);
+
+            }
+        }))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         Log.d(TAG, "concat accept " + integer);
                     }
                 });
+    }
 
-        /*
-
-        flatMap 把一个发射器  Observable 通过某种方法转换为多个 Observables，然后再把这些分散的 Observables装进一个单一的发射器 Observable。
-            但有个需要注意的是，flatMap 并不能保证事件的顺序，如果需要保证，需要用到我们下面要讲的 ConcatMap。
-        concatMap 跟flatMap的区别就在于它是有序的。下面代码中直接替换flatMap即可。
-         */
+    /**
+     * flatMap 把一个发射器  Observable 通过某种方法转换为多个 Observables，然后再把这些分散的 Observables装进一个单一的发射器 Observable。
+     *             但有个需要注意的是，flatMap 并不能保证事件的顺序，如果需要保证，需要用到我们下面要讲的 ConcatMap。
+     *         concatMap 跟flatMap的区别就在于它是有序的。下面代码中直接替换flatMap即可。
+     */
+    @SuppressLint("CheckResult")
+    private void flatMap() {
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
@@ -250,10 +296,14 @@ public class RxJavaActivity extends AppCompatActivity {
                     }
                 });
 
-        /*
-        distinct 去除发射器中重复的项
-        Log 1; 2; 3;
-         */
+    }
+
+    /**
+     * distinct 去除发射器中重复的项
+     *         Log 1; 2; 3;
+     */
+    @SuppressLint("CheckResult")
+    private void distinct() {
         Observable.just(1,2,3,2,1)
                 .distinct()
                 .subscribe(new Consumer<Number>() {
@@ -262,11 +312,14 @@ public class RxJavaActivity extends AppCompatActivity {
                         Log.d(TAG, "distinct accept " + number);
                     }
                 });
+    }
 
-        /*
-        filter 过滤器，过滤掉不符合我们条件的值
-        Log 20; 65;
-         */
+    /**
+     * filter 过滤器，过滤掉不符合我们条件的值
+     *         Log 20; 65;
+     */
+    @SuppressLint("CheckResult")
+    private void filter() {
         Observable.just(1,20,65,7,9)
                 .filter(new Predicate<Integer>() {
                     @Override
@@ -283,14 +336,17 @@ public class RxJavaActivity extends AppCompatActivity {
                 Log.d(TAG, "filter accept " + integer);
             }
         });
+    }
 
-        /*
-        buffer(3,2) 将发射器拆分，拆分后的每个发射器长度为3，没间隔2个拆分一次
-        拆分后生成三个发射器分别是
-        Observable.just(1,2,3)
-        Observable.just(3,4,5)
-        Observable.just(5)
-         */
+    /**
+     * buffer(3,2) 将发射器拆分，拆分后的每个发射器长度为3，没间隔2个拆分一次
+     *         拆分后生成三个发射器分别是
+     *         Observable.just(1,2,3)
+     *         Observable.just(3,4,5)
+     *         Observable.just(5)
+     */
+    @SuppressLint("CheckResult")
+    private void buffer() {
         Observable.just(1,2,3,4,5)
                 .buffer(3,2)
                 .subscribe(new Consumer<List<Integer>>() {
@@ -299,10 +355,14 @@ public class RxJavaActivity extends AppCompatActivity {
                         Log.d(TAG, "buffer " + integers);
                     }
                 });
-        /*
-        timer 定时器
-        记得销毁定时任务
-         */
+    }
+
+    /**
+     * timer 定时器
+     *         记得销毁定时任务
+     */
+    @SuppressLint("CheckResult")
+    private void timer() {
         mTimerDisposable = Observable.timer(2, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())// timer 默认在新线程，所以需要切换回主线程
@@ -312,10 +372,14 @@ public class RxJavaActivity extends AppCompatActivity {
                         // 两秒后，会执行这里的逻辑
                     }
                 });
-        /*
-        interval 间隔时间执行某个操作
-        记得销毁定时任务
-         */
+    }
+
+    /**
+     *  interval 间隔时间执行某个操作
+     *         记得销毁定时任务
+     */
+    @SuppressLint("CheckResult")
+    private void interval() {
         mIntervalDisposable = Observable.interval(3, 2, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())// interval 默认在新线程，所以需要切换回主线程
@@ -325,9 +389,13 @@ public class RxJavaActivity extends AppCompatActivity {
                         // 第一次延迟3秒后，会执行到这里，以后每个2秒执行到这里一次。
                     }
                 });
-        /*
-        doOnNext 在订阅者在接收到数据之前干点事情，比如保存数据到数据库等
-         */
+    }
+
+    /**
+     * doOnNext 在订阅者在接收到数据之前干点事情，比如保存数据到数据库等
+     */
+    @SuppressLint("CheckResult")
+    private void doOnNext() {
         Observable.just(1,2,3)
                 .doOnNext(new Consumer<Integer>() {
                     @Override
@@ -340,10 +408,14 @@ public class RxJavaActivity extends AppCompatActivity {
 
             }
         });
-        /*
-        skip 跳过发送器中一定长度的数据
-        Log skip 3
-         */
+    }
+
+    /**
+     * skip 跳过发送器中一定长度的数据
+     *         Log skip 3
+     */
+    @SuppressLint("CheckResult")
+    private void skip() {
         Observable.just(1,2,3)
                 .skip(2)
                 .subscribe(new Consumer<Integer>() {
@@ -352,10 +424,14 @@ public class RxJavaActivity extends AppCompatActivity {
                         Log.d(TAG, "skip " + integer);
                     }
                 });
-        /*
-        take 至多接收多少个发送器的长度的数据
-        Log take 1
-         */
+    }
+
+    /**
+     * take 至多接收多少个发送器的长度的数据
+     *         Log take 1
+     */
+    @SuppressLint("CheckResult")
+    private void take() {
         Observable.just(1,2,3)
                 .take(1)
                 .subscribe(new Consumer<Integer>() {
@@ -364,10 +440,14 @@ public class RxJavaActivity extends AppCompatActivity {
                         Log.d(TAG, "take " + integer);
                     }
                 });
-        /*
-        just 简单的实现发射器，内部会依次调用onNext方法
-        Log a; b; c;
-         */
+    }
+
+    /**
+     * just 简单的实现发射器，内部会依次调用onNext方法
+     *         Log a; b; c;
+     */
+    @SuppressLint("CheckResult")
+    private void just() {
         Observable.just("a","b", "c")
                 .subscribe(new Consumer<String>() {
                     @Override
@@ -375,10 +455,14 @@ public class RxJavaActivity extends AppCompatActivity {
                         Log.d(TAG, "just " + s);
                     }
                 });
-        /*
-        Single 只会接收一个参数，而SingleObserver只会调用onSuccess或者onError
-        Log onSubscribe; onSuccess
-         */
+    }
+
+    /**
+     *  Single 只会接收一个参数，而SingleObserver只会调用onSuccess或者onError
+     *         Log onSubscribe; onSuccess
+     */
+    @SuppressLint("CheckResult")
+    private void Single() {
         Single.just(new Random().nextInt())
                 .subscribe(new SingleObserver<Integer>() {
                     @Override
@@ -397,10 +481,14 @@ public class RxJavaActivity extends AppCompatActivity {
 
                     }
                 });
-        /*
-        debounce 去除发送频率过快的项
-        Log 2;4;5
-         */
+    }
+
+    /**
+     * debounce 去除发送频率过快的项
+     *         Log 2;4;5
+     */
+    @SuppressLint("CheckResult")
+    private void debounce() {
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
@@ -427,10 +515,14 @@ public class RxJavaActivity extends AppCompatActivity {
                         Log.d(TAG, "debounce " + integer);
                     }
                 });
-        /*
-        defer 如果订阅就会产生新的Observable
-        Log onSubscribe; 1; 2; 3; onComplete;
-         */
+    }
+
+    /**
+     * defer 如果订阅就会产生新的Observable
+     *         Log onSubscribe; 1; 2; 3; onComplete;
+     */
+    @SuppressLint("CheckResult")
+    private void defer() {
         Observable<Integer> observable = Observable.defer(new Callable<ObservableSource<? extends Integer>>() {
             @Override
             public ObservableSource<? extends Integer> call() throws Exception {
@@ -458,10 +550,14 @@ public class RxJavaActivity extends AppCompatActivity {
                 Log.d(TAG, "defer onComplete");
             }
         });
-        /*
-        last 仅取出可观察到的最后一个值，或者是满足某些条件的最后一项。
-        Log 3;
-         */
+    }
+
+    /**
+     * last 仅取出可观察到的最后一个值，或者是满足某些条件的最后一项。
+     *         Log 3;
+     */
+    @SuppressLint("CheckResult")
+    public void last() {
         Observable.just(1,2,3)
                 .last(4)
                 .subscribe(new Consumer<Integer>() {
@@ -470,7 +566,6 @@ public class RxJavaActivity extends AppCompatActivity {
                         Log.d(TAG, "last " + integer);
                     }
                 });
-
     }
 
     private Disposable mTimerDisposable;
