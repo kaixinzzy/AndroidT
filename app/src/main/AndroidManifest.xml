@@ -134,11 +134,6 @@
         </service>
 
         <activity android:name="com.zzy.android.service.ac.AIDLServiceActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <!-- 远程服务 -->
         <service
@@ -170,8 +165,22 @@
         </activity>
         <activity android:name="com.zzy.android.service.ac.MessengerServiceActivity">
         </activity>
+        <activity android:name="com.zzy.android.custom.SeekbarActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.zzy.android.custom.SeekbarHActivity">
 
+        </activity>
+        <activity android:name="com.zzy.android.custom.SeekbarVActivity">
+
+        </activity>
+        <activity android:name="com.zzy.android.custom.VerticalSeekBarActivity">
+
+        </activity>
     </application>
 
 </manifest>

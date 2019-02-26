@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    tools:context="com.zzy.android.custom.SeekbarActivity">
+
+    <TextView
+        android:id="@+id/tv_sugar"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="糖"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/tv_coffee"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_toStartOf="@id/tv_sugar"
+        android:gravity="center"
+        android:text="咖啡"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/tv_milk"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@id/tv_sugar"
+        android:gravity="center"
+        android:text="牛奶"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"/>
+
+    <!--
+    rsb_progress_height 标尺高度
+    rsb_progress_radius 标尺圆角
+    rsb_progress_default_color 标尺默认颜色
+    rsb_progress_color 进度条颜色
+
+    rsb_tick_mark_text_array 显示文字内容
+    rsb_tick_mark_text_margin 显示文字与进度条间的距离
+
+    rsb_mode range：两个圆点；single：一个圆点
+    rsb_min 最小值
+    rsb_max 最大值
+    rsb_tick_mark_number 将进度条几等分，每次滑行一份。值为1时失效
+    rsb_range_interval 限制两个step的距离
+
+    rsb_indicator_height 指示文字高度
+    rsb_thumb_size 进度位置圆点大小
+    rsb_thumb_drawable 进度位置圆点样式
+
+    rsb_indicator_show_mode 浮动提示模式（alwaysHide：总是隐藏）
+
+     -->
+    <com.zzy.android.custom.seekbar.VerticalRangeSeekBar
+        android:id="@+id/seekbar_coffee"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_below="@id/tv_coffee"
+        android:layout_alignStart="@id/tv_coffee"
+        app:rsb_mode="single"
+        app:rsb_min="1"
+        app:rsb_max="3"
+        app:rsb_range_interval="0"
+
+        app:rsb_progress_height="5dp"
+        app:rsb_progress_radius="10dp"
+        app:rsb_progress_default_color="@color/rsbColorThumbPressed"
+        app:rsb_progress_color="@color/colorProgress"
+
+        app:rsb_tick_mark_text_array="@array/wordsArray1_3"
+        app:rsb_tick_mark_text_margin="10dp"
+        app:rsb_tick_mark_number="2"
+        app:rsb_tick_mark_mode="other"
+        app:rsb_tick_mark_gravity="center"
+        app:rsb_tick_mark_text_color="@color/colorProgress"
+
+        app:rsb_indicator_height="25dp"
+        app:rsb_thumb_size="15dp"
+        app:rsb_thumb_drawable="@drawable/thumb_yellow"
+
+        app:rsb_indicator_show_mode="alwaysHide"
+        app:rsb_indicator_padding_left="10dp"
+        app:rsb_indicator_padding_right="10dp"
+        />
+
+    <com.zzy.android.custom.seekbar.VerticalRangeSeekBar
+        android:id="@+id/seekbar_sugar"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_below="@id/tv_sugar"
+        android:layout_alignStart="@id/tv_sugar"
+        app:rsb_mode="single"
+        app:rsb_min="0"
+        app:rsb_max="3"
+        app:rsb_range_interval="0"
+
+        app:rsb_progress_height="5dp"
+        app:rsb_progress_radius="10dp"
+        app:rsb_progress_default_color="@color/rsbColorThumbPressed"
+        app:rsb_progress_color="@color/colorProgress"
+
+        app:rsb_tick_mark_text_array="@array/wordsArray0_3"
+        app:rsb_tick_mark_text_margin="10dp"
+        app:rsb_tick_mark_number="3"
+        app:rsb_tick_mark_mode="other"
+        app:rsb_tick_mark_gravity="center"
+        app:rsb_tick_mark_text_color="@color/colorProgress"
+
+        app:rsb_indicator_height="25dp"
+        app:rsb_thumb_size="15dp"
+        app:rsb_thumb_drawable="@drawable/thumb_yellow"
+
+        app:rsb_indicator_show_mode="alwaysHide"
+        app:rsb_indicator_padding_left="10dp"
+        app:rsb_indicator_padding_right="10dp"
+        />
+
+    <com.zzy.android.custom.seekbar.VerticalRangeSeekBar
+        android:id="@+id/seekbar_milk"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_below="@id/tv_milk"
+        android:layout_alignStart="@id/tv_milk"
+        app:rsb_mode="single"
+        app:rsb_min="0"
+        app:rsb_max="3"
+        app:rsb_range_interval="0"
+
+        app:rsb_progress_height="5dp"
+        app:rsb_progress_radius="10dp"
+        app:rsb_progress_default_color="@color/rsbColorThumbPressed"
+        app:rsb_progress_color="@color/colorProgress"
+
+        app:rsb_tick_mark_text_array="@array/wordsArray0_3"
+        app:rsb_tick_mark_text_margin="10dp"
+        app:rsb_tick_mark_number="3"
+        app:rsb_tick_mark_mode="other"
+        app:rsb_tick_mark_gravity="center"
+        app:rsb_tick_mark_text_color="@color/colorProgress"
+
+        app:rsb_indicator_height="25dp"
+        app:rsb_thumb_size="15dp"
+        app:rsb_thumb_drawable="@drawable/thumb_yellow"
+
+        app:rsb_indicator_show_mode="alwaysHide"
+        app:rsb_indicator_padding_left="10dp"
+        app:rsb_indicator_padding_right="10dp"
+        />
+
+</RelativeLayout>

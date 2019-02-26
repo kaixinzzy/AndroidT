@@ -1,6 +1,8 @@
 package com.zzy.event;
 
 
+import com.zzy.util.ConvertByte;
+
 import org.junit.Test;
 
 import java.nio.ByteBuffer;
@@ -10,14 +12,50 @@ import java.util.Vector;
 
 public class JavaRun {
 
-    @Test //
-    public void lowByteToHighByte() {
-        byte highByte = (byte) 0x80;// 高位
-        byte lowByte = (byte) 0x80;// 低位
+    /** 两个byte转int，高位先发 **/
+    @Test
+    public void twoByte2Int() {
+        // int 5330
+//        byte highByte = (byte) 0x14;// 高位
+//        byte lowByte = (byte) 0xd2;// 低位
+        // int -90
+        byte highByte = (byte) 0xFF;// 高位
+        byte lowByte = (byte) 0xA6;// 低位
         int high = highByte << 8;
-        int low = lowByte;
+        int low = lowByte & 0xFF;
+        int temp = high|low;
         System.out.println("high is " + high);
         System.out.println("low is " + low);
+        System.out.println("temp is " + temp);
+    }
+
+    /** int转两个byte，高位先发 **/
+    @Test
+    public void int2TwoByte() {
+        int i = -90;
+        int highInt = i & 0x0000FF00;
+        byte highByte = (byte) (highInt >> 8);
+        byte lowByte = (byte) (i & 0x000000FF);
+        String highStr = ConvertByte.toHexString(highByte);
+        String lowStr = ConvertByte.toHexString(lowByte);
+        System.out.println("high is " + highStr);
+        System.out.println("low is " + lowStr);
+    }
+
+    @Test
+    public void string() {
+//        String tip = "aaa\nbbb\nccc\nddd\neee\n";
+        String tip = "aaa\n";
+        int from = tip.indexOf("\n", 0);
+        String[] splits = tip.split("\n");
+
+        System.out.println(from + "");
+        System.out.println(splits.length + "");
+
+        int index = (splits.length <= 3) ? 0 : (splits.length -3);
+        for (int i = index; i < splits.length; i++) {
+            System.out.println(splits[i]);
+        }
     }
 
     @Test

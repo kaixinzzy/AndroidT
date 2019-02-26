@@ -79,7 +79,7 @@ public class ConvertByte {
         return builder.toString();
     }
 
-    private String toHexString(byte b) {
+    public static String toHexString(byte b) {
         return String.format("%02x", b);
     }
 
