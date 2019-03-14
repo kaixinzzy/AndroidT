@@ -1,1 +1,1 @@
-include ':app', ':rx2retrofit2', ':librarycommon'
+include ':app', ':rx2retrofit2',':proControlFragment', ':librarycommon'

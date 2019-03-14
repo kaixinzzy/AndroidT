@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.zzy.event.ac"
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    sourceSets {
+        main {
+            // 配置aidl路径
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        // 开启数据绑定
+        enabled = true
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
+dependencies {
+    // AS 升级到3.0的一些个改变
+    // compile失效，改用 implementation or api，区别：
+    //      如在模块libraryCommon中用implementation导入Gson，app引入该模块，此时app中不能调用Gson。如果改用api就可以了。
+    //      参考https://blog.csdn.net/Next_Second/article/details/78428086
+    // testCompile - testImplementation or testApi
+    // debugCompile - debugImplementation or debugApi
+    // releaseCompile - releaseImplementation or releaseApi
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.android.support:design:27.1.1'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation project(':librarycommon')
+}
