@@ -6,11 +6,154 @@ import com.zzy.util.ConvertByte;
 import org.junit.Test;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 
 public class JavaRun {
+
+    @Test
+    public void test() {
+        /*byte[] buf = new byte[] {0x00, 0x00, 0x02, 0x00, 0x00, 0x02};
+        byte[] datas = Arrays.copyOfRange(buf,4,buf.length - 1);
+        System.out.println(bytesToHexString(datas, datas.length, true));
+
+        int i = buf[0] << 16 | buf[1] << 8 | buf[2];
+        System.out.println(i);
+
+        List<Boolean> array1 = getBooleanArray((byte) 0x03);
+        List<Boolean> array2 = getBooleanArray((byte) 0x01);
+        // 拼接两个byte
+        Boolean b = array1.addAll(array2);
+        if (b) {
+            for (int i1 = 0; i1 < array1.size(); i1++) {
+                System.out.print(array1.get(i1) ? "1" : "0");
+            }
+        }
+        System.out.println();
+        float f = 9.9f;
+        int i1 = (int) f;
+        System.out.println(i1 + " - ");
+        // 获取当前时间
+        SimpleDateFormat formatter = new SimpleDateFormat(
+                "yyyyMMddHHmmss", Locale.getDefault());
+        Date curDate = new Date(System.currentTimeMillis());
+        String recordTime = formatter.format(curDate);
+        System.out.println(recordTime);
+        // 20000628230039
+        // 20190408150225
+        byte[] bytes = hexStrToByteArray(recordTime);
+        String s = byteArrayToStr(bytes);
+        System.out.println(s);*/
+        List<String> list = new ArrayList<String>();
+        list.add("aaaa");
+        list.add("bbbb");
+        list.add("cccc");
+        System.out.println(list);
+
+    }
+
+    /** String转byte[] **/
+    public static byte[] strToByteArray(String str) {
+        if (str == null) {
+            return null;
+        }
+        byte[] byteArray = str.getBytes();
+        return byteArray;
+    }
+
+    /** byte[]转String **/
+    public static String byteArrayToStr(byte[] byteArray) {
+        if (byteArray == null) {
+            return null;
+        }
+        String str = new String(byteArray);
+        return str;
+    }
+
+    /** 十六进制String转byte[] **/
+    public static byte[] hexStrToByteArray(String str) {
+        if (str == null) {
+            return null;
+        }
+        if (str.length() == 0) {
+            return new byte[0];
+        }
+        byte[] byteArray = new byte[str.length() / 2];
+        for (int i = 0; i < byteArray.length; i++){
+            String subStr = str.substring(2 * i, 2 * i + 2);
+            byteArray[i] = ((byte)Integer.parseInt(subStr, 16));
+            System.out.print(byteToHexString(byteArray[i], true) + " ");
+        }
+        return byteArray;
+    }
+
+    /** byte[]转十六进制String **/
+    public static String byteArrayToHexStr(byte[] byteArray) {
+        if (byteArray == null){
+            return null;
+        }
+        char[] hexArray = "0123456789ABCDEF".toCharArray();
+        char[] hexChars = new char[byteArray.length * 2];
+        for (int j = 0; j < byteArray.length; j++) {
+            int v = byteArray[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(hexChars);
+    }
+
+    /**
+     * 将byte中的每位（bit）用boolean类型表示。
+     * 0x03会打印11000000
+     * @param b
+     * @return
+     */
+    private List<Boolean> getBooleanArray(byte b) {
+        List<Boolean> array = new ArrayList<>();
+        for (int i=0; i<=7; i++) {
+//            array[i] =(byte)(b & 1);
+            array.add((b & 1) == 1);
+            b = (byte)(b >> 1);
+//            System.out.print(array.get(i) ? "1" : "0" );
+        }
+        return array;
+    }
+
+    /** BCD码（日期、时间、帐号等）转String；（可以将此String强转为int类型） **/
+    @Test
+    public void BCDbytes2String() {
+        byte[] bytes = new byte[]{0x20, 0x15, 0x05, 0x13, 0x14, 0x30, 0x28};
+        String BCD = bytesToHexString(bytes, bytes.length, false);
+        System.out.println(BCD);
+        byte[] bytes1 = Arrays.copyOfRange(bytes, 1, 3);
+        System.out.println(bytesToHexString(bytes1, bytes1.length, true));
+    }
+
+    /** byte转HexString **/
+    public static String byteToHexString(byte b, boolean flag) {
+        if (flag) {
+            return String.format("0x" + "%02x", b);
+        } else {
+            return String.format("%02x", b);
+        }
+    }
+
+    /** bytes转HexString **/
+    private String bytesToHexString(byte[] bytes, int size, boolean flag) {
+        final StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            if (flag) {
+                builder.append("0x" + String.format("%02x", bytes[i]) + " ");
+            } else {
+                builder.append(String.format("%02x", bytes[i]));
+            }
+        }
+        return builder.toString();
+    }
 
     /** 两个byte转int，高位先发 **/
     @Test

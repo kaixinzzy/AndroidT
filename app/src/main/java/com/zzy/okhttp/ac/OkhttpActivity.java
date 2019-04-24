@@ -10,8 +10,17 @@ import com.zzy.okhttp.ReqCallBack;
 import com.zzy.okhttp.RequestManager;
 import com.zzy.okhttp.module.wan.ArticleList;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class OkhttpActivity extends AppCompatActivity implements ReqCallBack {
     private static final String TAG = "OkhttpActivity";
@@ -38,6 +47,86 @@ public class OkhttpActivity extends AppCompatActivity implements ReqCallBack {
 //        RequestManager.getInstance(this).requestAsyn("", TYPE_POST_JSON, map, this);
         // 异步 post 表单
 //        RequestManager.getInstance(this).requestAsyn("", TYPE_POST_FORM, map, this);
+
+
+    }
+
+    /** Okhttp get 同步请求 **/
+    private void getExecute() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("www.jd.com")
+                .build();
+        Call call = client.newCall(request);
+        try {
+            Response response = call.execute();
+            Log.d(TAG, response.body().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    /** Okhttp get 异步请求 **/
+    private void getEnqueue() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("www.jd.com")
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d(TAG, response.body().string());
+            }
+        });
+    }
+
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+    /** Okhttp post 同步请求 **/
+    private void postExecute() {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = RequestBody.create(JSON, "xxx");
+        Request request = new Request.Builder()
+                .url("www.jd.com")
+                .post(requestBody)
+                .build();
+        Call call = client.newCall(request);
+        try {
+            Response response = call.execute();
+            Log.d(TAG, response.body().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** Okhttp post 异步请求 **/
+    private void postEnqueue() {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = RequestBody.create(JSON, "xxx");
+        Request request = new Request.Builder()
+                .url("www.jd.com")
+                .post(requestBody)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d(TAG, response.body().string());
+            }
+        });
     }
 
     @Override

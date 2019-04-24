@@ -1,4 +1,4 @@
-package com.zzy.def.module;
+package com.zzy.librarycommon.module;
 
 public class NetworkChangeEvent {
     public boolean isConnected;// 是否连接网络

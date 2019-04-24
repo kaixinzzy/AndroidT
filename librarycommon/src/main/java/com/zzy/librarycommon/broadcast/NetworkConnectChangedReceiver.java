@@ -1,4 +1,4 @@
-package com.zzy.def.broadcast;
+package com.zzy.librarycommon.broadcast;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.zzy.def.module.NetworkChangeEvent;
-import com.zzy.def.utils.NetUtils;
+import com.zzy.librarycommon.module.NetworkChangeEvent;
+import com.zzy.librarycommon.utils.NetUtils;
 
 import org.greenrobot.eventbus.EventBus;
 

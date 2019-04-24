@@ -1,7 +1,7 @@
 package com.zzy.dagger.component;
 
 import com.zzy.dagger.module.CommonModule;
-import com.zzy.def.base.APP;
+import com.zzy.librarycommon.base.APP;
 
 import dagger.Component;
 

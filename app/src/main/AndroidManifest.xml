@@ -20,7 +20,7 @@
     <!-- SD卡写权限 -->
     <!-- 开机广播 -->
     <application
-        android:name="com.zzy.def.base.APP"
+        android:name="com.zzy.librarycommon.base.APP"
         android:allowBackup="false"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
@@ -173,13 +173,14 @@
             </intent-filter>
         </activity>
         <activity android:name="com.zzy.android.custom.SeekbarHActivity">
-
         </activity>
         <activity android:name="com.zzy.android.custom.SeekbarVActivity">
-
         </activity>
         <activity android:name="com.zzy.android.custom.VerticalSeekBarActivity">
-
+        </activity>
+        <activity android:name="com.zzy.permission.PermissionActivity">
+        </activity>
+        <activity android:name="com.zzy.rx.RxbindingActivity">
         </activity>
     </application>
 

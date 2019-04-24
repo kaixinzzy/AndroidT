@@ -1,4 +1,4 @@
-package com.zzy.def.utils;
+package com.zzy.librarycommon.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

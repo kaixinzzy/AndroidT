@@ -1,12 +1,8 @@
-package com.zzy.def.utils;
+package com.zzy.librarycommon.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
-
-import com.zzy.def.log4j.LogUtil;
-
-import org.apache.log4j.Logger;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
