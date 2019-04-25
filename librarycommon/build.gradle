@@ -30,7 +30,7 @@ dependencies {
     api 'com.android.support:appcompat-v7:27.1.1'
     api 'com.android.support:recyclerview-v7:27.1.1'
     api 'com.android.support:cardview-v7:27.1.1'
-    api 'com.android.support.constraint:constraint-layout:1.1.2'
+    api 'com.android.support.constraint:constraint-layout:1.1.3'
     api 'com.android.support:design:27.1.1'
 
     testImplementation 'junit:junit:4.12'
@@ -49,8 +49,8 @@ dependencies {
     api files('libs/log4j-1.2.17.jar')
 
     // Butter Knife 又名黄油刀，View、点击事件
-    api 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    api 'com.jakewharton:butterknife:9.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0'
 //    apt 'com.jakewharton:butterknife-compiler:8.8.1' // 如果使用Kotlin，请用此替换上面的annotationProcessor
     // EventBus 数据跨域传递
     api 'org.greenrobot:eventbus:3.1.1'

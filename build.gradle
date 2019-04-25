@@ -13,8 +13,8 @@ buildscript {
         // https://developer.android.com/studio/releases/gradle-plugin
         // 当gradle tools版本时3.1.4时，buildToolsVersion最低是27.0.3
         classpath 'com.android.tools.build:gradle:3.1.4'
-        // Butter Knife 黄油刀
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
+        // Butter Knife 黄油刀 从10版本开始引入了androidx，会导致不兼容，使用时注意
+        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0'
 //        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
