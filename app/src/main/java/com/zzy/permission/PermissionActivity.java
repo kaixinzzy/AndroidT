@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.zzy.event.ac.R;
+import com.zzy.librarycommon.base.BaseActivity;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -25,11 +25,14 @@ import permissions.dispatcher.RuntimePermissions;
  * 版    本：
  * 创建日期： 2019/3/14
  * 描    述: 运行时权限申请
- * 参    考：https://www.jianshu.com/p/dea56f6d7af3
+ * 参    考：
+ *          http://www.androidchina.net/8383.html
+ *          对比分析了PermissionsDispatcher、easypermissions、RxPermissions说那个库
  * ================================================
  */
+// 申请权限类标识注解
 @RuntimePermissions
-public class PermissionActivity extends AppCompatActivity {
+public class PermissionActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +40,16 @@ public class PermissionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_permission);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // NOTE: delegate the permission handling to generated method
-//        PermissionActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-    }
-
     /** 申请权限成功时 **/
     @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
     void ApplySuccess() {
-
+        Toast.makeText(this, "ACCESS_COARSE_LOCATION 权限申请成功，开始执行定位逻辑", Toast.LENGTH_LONG).show();
     }
 
-    /** 申请权限告诉用户原因时 **/
+    /** 申请权限前需要执行的任务，eg：告诉用户原因 **/
     @OnShowRationale(Manifest.permission.ACCESS_COARSE_LOCATION)
     void showRationaleForMap(PermissionRequest request) {
-        showRationaleDialog("使用此功能需要打开定位的权限", request);
+        showRationaleDialog("此功能需要打开定位的权限，", request);
     }
 
     /** 申请权限被拒绝时 **/

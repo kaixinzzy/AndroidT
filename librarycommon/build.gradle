@@ -72,8 +72,6 @@ dependencies {
 //    compile 'com.squareup.retrofit2:converter-wire:2.3.0'
 //    compile 'com.squareup.retrofit2:converter-simplexml:2.3.0'
 //    compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
-    // Retrofit的rx解析库
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
     // RxJava - 响应式编程范式
     api 'io.reactivex.rxjava2:rxjava:2.1.14'
@@ -81,6 +79,15 @@ dependencies {
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     // RxJava2 Adapter
     api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    // Rx对Retrofit的支持
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+    // Rx对View点击事件的支持
+    api 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    api 'com.jakewharton.rxbinding:rxbinding-support-v4:0.4.0'
+    api 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
+    api 'com.jakewharton.rxbinding:rxbinding-design:0.4.0'
+
 
     // Dagger2 译匕首 依赖注入（降低程序耦合性）
     api 'com.google.dagger:dagger:2.17'
@@ -97,7 +104,7 @@ dependencies {
 
     // 图片加载
     api("com.github.bumptech.glide:glide:4.8.0") {
-        // 排除glide自身依赖的support包，用本app依赖的support包
+        // 排除lib自身依赖的support包，用本app依赖的support包
         exclude group: "com.android.support"
     }
     api "com.android.support:support-fragment:27.1.1"
@@ -117,4 +124,16 @@ dependencies {
     // provide okhttp to connect to backend
     // and then please import okhttp dependencies by yourself
     api 'com.liulishuo.okdownload:okhttp:1.0.4'
+
+    // 权限 https://github.com/permissions-dispatcher/PermissionsDispatcher
+    api("com.github.hotchemi:permissionsdispatcher:3.3.1") {
+        // 排除lib自身依赖的support包，用本app依赖的support包
+        exclude group: "com.android.support"
+    }
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.3.1"
+    // androidx Jetpack 用此项
+//    api "org.permissionsdispatcher:permissionsdispatcher:4.3.1"
+//    annotationProcessor "org.permissionsdispatcher:permissionsdispatcher-processor:4.3.1"
+
+
 }
