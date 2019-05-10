@@ -11,6 +11,8 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        // 方法数超过64K分包
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -49,8 +51,8 @@ dependencies {
     api files('libs/log4j-1.2.17.jar')
 
     // Butter Knife 又名黄油刀，View、点击事件
-    api 'com.jakewharton:butterknife:9.0.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0'
+    api 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 //    apt 'com.jakewharton:butterknife-compiler:8.8.1' // 如果使用Kotlin，请用此替换上面的annotationProcessor
     // EventBus 数据跨域传递
     api 'org.greenrobot:eventbus:3.1.1'
@@ -81,7 +83,6 @@ dependencies {
     api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     // Rx对Retrofit的支持
     api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-
     // Rx对View点击事件的支持
     api 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     api 'com.jakewharton.rxbinding:rxbinding-support-v4:0.4.0'
@@ -135,5 +136,11 @@ dependencies {
 //    api "org.permissionsdispatcher:permissionsdispatcher:4.3.1"
 //    annotationProcessor "org.permissionsdispatcher:permissionsdispatcher-processor:4.3.1"
 
+    // jsoup 网页抓去数据
+    api 'org.jsoup:jsoup:1.9.2'
+    // SharedPreferences 数据缓存
+    api 'com.orhanobut:hawk:2.0.1'
+    // Log 日志
+    api 'com.orhanobut:logger:2.2.0'
 
 }

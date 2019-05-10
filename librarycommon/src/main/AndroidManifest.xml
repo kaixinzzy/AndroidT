@@ -2,4 +2,16 @@
           package="com.zzy.librarycommon">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application>
+        <!-- 监听网络状态 -->
+        <receiver android:name="com.zzy.librarycommon.broadcast.NetworkConnectChangedReceiver">
+            <intent-filter>
+                <action android:name="android.NET.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.Net.wifi.WIFI_STATE_CHANGED"/>
+                <action android:name="android.net.wifi.STATE_CHANGE"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
 </manifest>
